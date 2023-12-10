@@ -1,11 +1,11 @@
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
 import { DataModule } from './database/database.module';
-import { RequestsModule } from './requests/requests.module';
-import { StrategiesModule } from './strategies/strategies.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
+import { RequestsModule } from './modules/requests/requests.module';
+import { StrategiesModule } from './modules/strategies/strategies.module';
 
 @Module({
   imports: [
