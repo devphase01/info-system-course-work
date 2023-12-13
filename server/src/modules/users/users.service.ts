@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   BadRequestException,
@@ -40,7 +40,7 @@ export class UsersService {
     return newUser;
   }
 
-  public async findOne(id: string) {
+  public async findById(id: string) {
     try {
       return await this.userRepository.findOneBy({ id });
     } catch (err) {
@@ -51,6 +51,18 @@ export class UsersService {
 
       throw err;
     }
+  }
+
+  public async findBy(options: FindOptionsWhere<UserEntity>) {
+    const user = await this.userRepository.findOneBy(options);
+
+    if (!user) {
+      throw new NotFoundException(
+        `User does not exist by following options: ${options}`,
+      );
+    }
+
+    return user;
   }
 
   public async findAll() {

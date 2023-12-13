@@ -34,7 +34,7 @@ export class RequestsService {
 
   public async create(createRequestDto: CreateRequestDto) {
     const { userId, ...requestBody } = createRequestDto;
-    const user = await this.userService.findOne(userId);
+    const user = await this.userService.findById(userId);
 
     const request = this.requestRepository.create({
       user,
