@@ -1,3 +1,3 @@
 export const config = {
-  API_ENDPOINT: process.env.REACT_APP_API_ENDPOINT ?? '',
+  API_ENDPOINT: 'http://localhost:6700',
 } as const;

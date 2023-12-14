@@ -1,18 +1,40 @@
 import { baseApi } from "@shared/config/base.api";
+import { ICreateUser, ICredentials, ILogin } from "./user.interfaces";
+import { logout, setUser } from "../models";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    login: build.mutation({
-      query: () => ({
+    login: build.mutation<ICredentials, ILogin>({
+      query: body => ({
         url: '/auth/login',
-        method: 'POST'
+        method: 'POST',
+        body,
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const credentials = (await queryFulfilled).data as unknown as ICredentials;
+      
+          dispatch(setUser(credentials))
+        } catch (error) {
+          dispatch(logout());
+        }
+      }
     }),
-    register: build.mutation({
-      query: () => ({
-        url: '',
-        method: 'POST'
+    register: build.mutation<ICredentials, ICreateUser>({
+      query: body => ({
+        url: '/auth/register',
+        method: 'POST',
+        body
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const credentials = (await queryFulfilled).data as unknown as ICredentials;
+      
+          dispatch(setUser(credentials))
+        } catch (error) {
+          dispatch(logout());
+        }
+      }
     }),
   }),
 });

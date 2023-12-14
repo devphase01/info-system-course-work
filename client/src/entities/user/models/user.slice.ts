@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RoleType } from './user.interfaces';
+import { ICredentials } from '../api/user.interfaces';
 
 interface IUserState {
   userId: string,
@@ -19,7 +20,7 @@ const userSlice = createSlice({
   name: 'userSlice',
   initialState,
   reducers: {
-    setUser: (state: IUserState, { payload }: PayloadAction<Omit<IUserState, 'isAuth'>>) => {
+    setUser: (state: IUserState, { payload }: PayloadAction<ICredentials>) => {
       state.userId = payload.userId;
       state.email = payload.email;
       state.role = payload.role;
