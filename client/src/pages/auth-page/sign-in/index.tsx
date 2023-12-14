@@ -1,26 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, MouseEvent, useState } from "react";
 
+import { useLoginMutation } from '@entities/user';
+
 import { cn } from "@shared/utils/style.util";
 import { classes } from "../index.styled";
-import { useAppDispatch } from '@shared/hooks/redux.hook';
-import { setUser } from '@entities/user';
 
 const SignIn = () => {
-  const dispatch = useAppDispatch();
+  const [loginAsync] = useLoginMutation();
   const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (event: MouseEvent) => {
+  const handleSubmit = async (event: MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
 
-    dispatch(setUser({
-      userId: 'id',
-      email: 'email',
-      role: 'manager',
-    }));
+    await loginAsync({
+      email,
+      password,
+    });
   };
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {

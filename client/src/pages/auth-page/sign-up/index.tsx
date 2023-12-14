@@ -1,19 +1,29 @@
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, MouseEvent, useState } from "react";
 
+import { useRegisterMutation } from '@entities/user';
+
 import { cn } from "@shared/utils/style.util";
 import { classes } from "../index.styled";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [registerAsync] = useRegisterMutation();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (event: MouseEvent) => {
+  const handleSubmit = async (event: MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
 
-    console.log('rere');
+    if (!password || !email) {
+      return;
+    }
+
+    await registerAsync({
+      email,
+      password
+    });
   };
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {
