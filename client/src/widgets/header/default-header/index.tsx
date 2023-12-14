@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const Header = () => {
   const navigate = useNavigate();
   const handleNavigate = () => navigate('/');
+  
   return (
     <div className="h-[80px] px-[120px] py-[20px] bg-anti-flash">
       <div className="flex items-center justify-between">

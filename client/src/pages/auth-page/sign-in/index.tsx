@@ -3,8 +3,11 @@ import { ChangeEvent, MouseEvent, useState } from "react";
 
 import { cn } from "@shared/utils/style.util";
 import { classes } from "../index.styled";
+import { useAppDispatch } from '@shared/hooks/redux.hook';
+import { setUser } from '@entities/user';
 
 const SignIn = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -13,7 +16,7 @@ const SignIn = () => {
     event.preventDefault();
     event.stopPropagation();
 
-    console.log('rere');
+    dispatch(setUser({}));
   };
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {

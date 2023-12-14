@@ -13,6 +13,7 @@ export default defineConfig({
       { find: '@shared', replacement: path.resolve(__dirname, 'src/shared') },
       { find: '@styles', replacement: path.resolve(__dirname, 'src/shared/styles') },
       { find: '@utils', replacement: path.resolve(__dirname, 'src/shared/utils') },
+      { find: '@entities', replacement: path.resolve(__dirname, 'src/entities') },
       { find: '@assets', replacement: path.resolve(__dirname, 'public/assets') },
       { find: '@pages', replacement:  path.resolve(__dirname, 'src/pages')},
       { find: '@widgets', replacement:  path.resolve(__dirname, 'src/widgets')},
