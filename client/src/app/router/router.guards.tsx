@@ -16,7 +16,7 @@ export function RoleGuard({ role }: { role: RoleType }) {
   const { role: userRole } = useAppSelector(selectUser);
 
   if (role !== userRole) {
-    return <Navigate to={'/'} />
+    return <Navigate to={'/requests'} />
   }
 
   return <Outlet />;

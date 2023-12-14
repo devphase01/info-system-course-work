@@ -9,27 +9,31 @@ interface IUserState {
 }
 
 const initialState: IUserState = {
-  userId: '',
-  email: '',
-  role: '',
-  isAuth: false,
+  userId: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).userId : '',
+  email: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).email : '',
+  role: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).role : '',
+  isAuth: localStorage.getItem('user') ? true : false,
 };
 
 const userSlice = createSlice({
   name: 'userSlice',
   initialState,
   reducers: {
-    setUser: (state: IUserState, { payload }: PayloadAction<{}>) => {
-      state.userId = 'id';
-      state.email = 'test@gmail.com';
-      state.role = 'manager';
+    setUser: (state: IUserState, { payload }: PayloadAction<Omit<IUserState, 'isAuth'>>) => {
+      state.userId = payload.userId;
+      state.email = payload.email;
+      state.role = payload.role;
       state.isAuth = true;
+
+      localStorage.setItem('user', JSON.stringify(payload))
     },
     logout: (state: IUserState) => {
       state.userId = '';
       state.email = '';
       state.role = '';
       state.isAuth = false;
+
+      localStorage.removeItem('user')
     },
   }
 });

@@ -16,7 +16,11 @@ const SignIn = () => {
     event.preventDefault();
     event.stopPropagation();
 
-    dispatch(setUser({}));
+    dispatch(setUser({
+      userId: 'id',
+      email: 'email',
+      role: 'manager',
+    }));
   };
 
   const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {

@@ -27,7 +27,7 @@ const SignUp = () => {
   return (
     <div className={classes.container}>
       <div className={classes.formBox}>
-        <h1 className={classes.title}>Sign in</h1>
+        <h1 className={classes.title}>Sign up</h1>
 
         <form className={classes.form}>
           <input 

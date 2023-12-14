@@ -44,12 +44,12 @@ const UserButtons = () => {
 
   return (
     <div className="flex items-center gap-[12px]">
-      <button className={classes.btn} onClick={() => navigate('/requests')}>
-        My Requests
-      </button>
-
       <button className={classes.btn} onClick={() => navigate('/create-request')}>
         Create a Request
+      </button> 
+
+      <button className={classes.btn} onClick={() => navigate('/requests')}>
+        My Requests
       </button>
 
       <button className={classes.logout} onClick={handleLogout}>
