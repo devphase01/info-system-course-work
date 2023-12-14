@@ -9,5 +9,6 @@ import { UsersModule } from '../users/users.module';
   imports: [DataModule.forFeature([RequestEntity]), UsersModule],
   controllers: [RequestsController],
   providers: [RequestsService],
+  exports: [RequestsService],
 })
 export class RequestsModule {}

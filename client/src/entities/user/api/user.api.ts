@@ -4,6 +4,12 @@ import { logout, setUser } from "../models";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: build => ({
+    getUserRequests: build.query<void, string>({
+      query: userId => ({
+        url: `/users/${userId}/requests`,
+        method: 'GET'
+      }),
+    }),
     login: build.mutation<ICredentials, ILogin>({
       query: body => ({
         url: '/auth/login',
@@ -39,4 +45,4 @@ export const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = userApi;
+export const { useLoginMutation, useRegisterMutation, useGetUserRequestsQuery } = userApi;

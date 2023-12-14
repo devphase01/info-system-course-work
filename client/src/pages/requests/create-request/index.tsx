@@ -3,16 +3,18 @@ import { MouseEvent, useState } from 'react';
 import { selectUser } from '@entities/user';
 
 import { useAppSelector } from '@shared/hooks/redux.hook';
+import { useCreateRequestMutation } from '@entities/request';
 
 import { cn } from '@shared/utils/style.util';
 import { classes } from './index.styled';
 
 const CreateRequestPage = () => {
   const { userId } = useAppSelector(selectUser);
+  const [createRequestAsync] = useCreateRequestMutation();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const handleCreate = (event: MouseEvent) => {
+  const handleCreate = async (event: MouseEvent) => {
     event.preventDefault();
     
     if (!title || !description ) {
@@ -25,7 +27,7 @@ const CreateRequestPage = () => {
       description,
     };
 
-    console.log(`API Request:`, createRequestDto);
+    await createRequestAsync(createRequestDto);
   };
 
   return (

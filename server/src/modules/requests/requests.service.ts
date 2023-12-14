@@ -32,6 +32,16 @@ export class RequestsService {
     }
   }
 
+  public async getById(id: string) {
+    const request = await this.requestRepository.findOneBy({ id });
+
+    if (!request) {
+      throw new NotFoundException('Request was not found');
+    }
+
+    return request;
+  }
+
   public async create(createRequestDto: CreateRequestDto) {
     const { userId, ...requestBody } = createRequestDto;
     const user = await this.userService.findById(userId);
@@ -58,5 +68,9 @@ export class RequestsService {
     await this.requestRepository.save(request);
 
     return request;
+  }
+
+  public async save(request: RequestEntity) {
+    await this.requestRepository.save(request);
   }
 }

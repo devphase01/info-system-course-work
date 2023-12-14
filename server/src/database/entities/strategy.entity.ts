@@ -15,7 +15,7 @@ export class StrategyEntity extends EntityBase {
   status: 'rejected' | 'pending' | 'approved';
 
   @ManyToOne(() => RequestEntity)
-  requests: RequestEntity[];
+  request: RequestEntity;
 
   @ManyToOne(() => UserEntity, (user) => user.strategies)
   user: UserEntity;
