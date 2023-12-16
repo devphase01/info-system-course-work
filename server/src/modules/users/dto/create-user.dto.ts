@@ -1,7 +1,7 @@
-import { Roles } from 'src/shared/enums';
+import { UserRoles } from 'src/shared/enums';
 
 export class CreateUserDto {
-  role: Roles;
+  role: UserRoles;
   email: string;
   password: string;
 }

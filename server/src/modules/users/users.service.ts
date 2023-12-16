@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   BadRequestException,
@@ -9,7 +9,7 @@ import {
 import { UserEntity } from 'src/database';
 
 import { CreateUserDto } from './dto/create-user.dto';
-import { Roles } from 'src/shared/enums';
+import { UserRoles } from 'src/shared/enums';
 
 @Injectable()
 export class UsersService {
@@ -29,8 +29,8 @@ export class UsersService {
       );
     }
 
-    if (!Object.values(Roles).includes(createUserDto.role)) {
-      createUserDto.role = Roles.USER;
+    if (!Object.values(UserRoles).includes(createUserDto.role)) {
+      createUserDto.role = UserRoles.USER;
     }
 
     const newUser = this.userRepository.create(createUserDto);
@@ -40,11 +40,26 @@ export class UsersService {
     return newUser;
   }
 
-  public async findOne(id: string) {
-    const user = await this.userRepository.findOneBy({ id });
+  public async findById(id: string) {
+    try {
+      return await this.userRepository.findOneBy({ id });
+    } catch (err) {
+      // TODO: Handle such errors with Filter
+      if (err.message.includes('invalid input syntax')) {
+        throw new NotFoundException(`User with id ${id} does not exist.`);
+      }
+
+      throw err;
+    }
+  }
+
+  public async findBy(options: FindOptionsWhere<UserEntity>) {
+    const user = await this.userRepository.findOneBy(options);
 
     if (!user) {
-      throw new NotFoundException(`User with id ${id} does not exist.`);
+      throw new NotFoundException(
+        `User does not exist by following options: ${options}`,
+      );
     }
 
     return user;
